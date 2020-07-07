@@ -1,0 +1,3 @@
+enum Clef {
+    case treble
+}
