@@ -5,8 +5,18 @@ public struct StaffView: View {
     public init() {}
 
     public var body: some View {
-        return Text("\u{1D11E}")
-            .environment(\.font, Font.custom("Bravura", size: 20))
-            .frame(minWidth: 50, minHeight: 50)
+        return HStack {
+            Rectangle()
+        }
+    }
+
+    private func staffLine() -> some View {
+        Rectangle().frame(minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+    }
+}
+
+struct StaffView_Previews: PreviewProvider {
+    static var previews: some View {
+        StaffView()
     }
 }
