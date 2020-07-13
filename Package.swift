@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "SnapshotTesting", url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.8.1"),
-        .package(name: "Tagged", url: "https://github.com/pointfreeco/swift-tagged.git", from: "0.5.0")
+        .package(name: "Tagged", url: "https://github.com/pointfreeco/swift-tagged.git", from: "0.5.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -25,13 +25,13 @@ let package = Package(
         .target(
             name: "SwiftStaff",
             dependencies: ["Tagged"],
-            path: "Sources",
+            path: "SwiftStaff",
             resources: [.process("Resources")]
         ),
         .testTarget(
             name: "SwiftStaffTests",
             dependencies: ["SwiftStaff", "SnapshotTesting"],
-            path: "Tests",
+            path: "SwiftStaffTests",
             exclude: ["__Snapshots__"]
         ),
     ]
