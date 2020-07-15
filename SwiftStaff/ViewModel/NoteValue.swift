@@ -1,13 +1,33 @@
-public struct NoteValue {
-    public init(denominator: UInt) {
-        self.denominator = denominator
+public struct NoteValue: ExpressibleByIntegerLiteral {
+
+    public init(denominatorExponent: UInt) {
+        self.denominatorExponent = denominatorExponent
     }
 
-    // 1 = whole note
-    // 4 = quarter note
-    public let denominator: UInt
+    public init(integerLiteral value: UInt) {
+        self.init(denominatorExponent: value)
+    }
+
+    // value = 1/2^denominatorExponent
+    // 0 = whole note
+    // 1 = half note
+    // 2 = quarter note
+    // 3 = eighth note
+    public let denominatorExponent: UInt
+
+    public static var whole: NoteValue {
+        NoteValue(denominatorExponent: 0)
+    }
+
+    public static var half: NoteValue {
+        NoteValue(denominatorExponent: 1)
+    }
 
     public static var quarter: NoteValue {
-        NoteValue(denominator: 4)
+        NoteValue(denominatorExponent: 2)
+    }
+
+    public static var eighth: NoteValue {
+        NoteValue(denominatorExponent: 3)
     }
 }

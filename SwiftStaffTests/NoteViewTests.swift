@@ -9,10 +9,13 @@ import CoreTextSwift
 final class NoteViewTests: XCTestCase {
     func test() throws {
         XCTAssertTrue(SwiftStaff.setup())
-        assertSnapshot(
-            matching: NoteView(model: Note(position: 0, value: .quarter)),
-            as: .image(layout: .fixed(width: 200, height: 200))
-        )
+        for i in 0...3 {
+            let value = NoteValue(denominatorExponent: UInt(i))
+            assertSnapshot(
+                matching: NoteView(model: Note(position: 0, value: value)),
+                as: .image(layout: .fixed(width: 200, height: 200))
+            )
+        }
     }
 }
 #endif
