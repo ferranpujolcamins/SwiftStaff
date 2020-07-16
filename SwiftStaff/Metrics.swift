@@ -1,54 +1,71 @@
 import Foundation
+import CoreGraphics
 import Tagged
 
 enum EmTag {}
-typealias Em<N: BinaryFloatingPoint> = Tagged<EmTag, N>
+typealias Em = Tagged<EmTag, CGFloat>
 
-extension Em where RawValue: BinaryFloatingPoint, Tag == EmTag {
-    var asStaffSpaces: StaffSpaces<RawValue> {
-        (rawValue / RawValue(4)).staffSpaces()
-    }
-
-    func asPoints(forFontSize fontSize: RawValue) -> RawValue {
-        rawValue * fontSize
+extension Em where RawValue == CGFloat, Tag == EmTag {
+    var asStaffSpaces: StaffSpaces {
+        (rawValue * RawValue(4)).staffSpaces
     }
 }
 
 enum StaffSpacesTag {}
-typealias StaffSpaces<N: BinaryFloatingPoint> = Tagged<StaffSpacesTag, N>
+typealias StaffSpaces = Tagged<StaffSpacesTag, CGFloat>
 
-extension StaffSpaces where RawValue: BinaryFloatingPoint, Tag == StaffSpacesTag {
-    var asEm: Em<RawValue> {
-        (rawValue * 4).em()
-    }
-
-    func asPoints(forFontSize fontSize: RawValue) -> RawValue {
-        asEm.asPoints(forFontSize: fontSize)
+extension StaffSpaces where RawValue == CGFloat, Tag == StaffSpacesTag {
+    var asEm: Em {
+        (rawValue / 4).ems
     }
 }
 
-extension BinaryFloatingPoint {
-    func em() -> Em<Self> {
+extension CGFloat {
+    var ems: Em {
         Em(rawValue: self)
     }
 
-    func staffSpaces() -> StaffSpaces<Self> {
+    var staffSpaces: StaffSpaces {
         StaffSpaces(rawValue: self)
     }
 }
 
-extension IntegerLiteralType {
-    func em<N: BinaryFloatingPoint>() -> Em<N> {
-        Em(rawValue: N(self))
+extension BinaryInteger {
+    var ems: Em {
+        Em(rawValue: CGFloat(self))
     }
 
-    func staffSpaces<N: BinaryFloatingPoint>() -> StaffSpaces<N> {
-        StaffSpaces(rawValue: N(self))
+    var staffSpaces: StaffSpaces {
+        StaffSpaces(rawValue: CGFloat(self))
+    }
+}
+
+extension BinaryFloatingPoint {
+    var ems: Em {
+        Em(rawValue: CGFloat(self))
+    }
+
+    var staffSpaces: StaffSpaces {
+        StaffSpaces(rawValue: CGFloat(self))
+    }
+}
+
+extension Decimal {
+    var ems: Em {
+        Em(rawValue: CGFloat(truncating: self as NSNumber))
+    }
+
+    var staffSpaces: StaffSpaces {
+        StaffSpaces(rawValue: CGFloat(truncating: self as NSNumber))
     }
 }
 
 enum FontMetrics {
-    static func staffLineThickness<N: BinaryFloatingPoint>() -> StaffSpaces<N> {
-        N(0.13).staffSpaces()
+    static var staffLineThickness: StaffSpaces {
+        0.13.staffSpaces
+    }
+
+    static var staffHeight: StaffSpaces {
+        4.staffSpaces + staffLineThickness
     }
 }

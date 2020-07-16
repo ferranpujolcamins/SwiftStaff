@@ -1,10 +1,13 @@
 import Foundation
 import UIKit
-import CoreTextSwift
 
 public enum SwiftStaff {
-    public static func setup() -> Bool {
+    private static let run: Bool = {
         UIFont.registerFont(bundle: Bundle.module, fontName: "Bravura", fontExtension: "otf")
+    }()
+
+    public static func setup() -> Bool {
+        run
     }
 }
 

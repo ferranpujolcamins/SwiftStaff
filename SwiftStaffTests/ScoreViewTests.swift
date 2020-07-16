@@ -4,12 +4,12 @@ import SwiftUI
 import SwiftStaff
 
 #if os (iOS)
-final class StaffViewTests: XCTestCase {
+final class ScoreViewTests: XCTestCase {
     func test() {
         XCTAssertTrue(SwiftStaff.setup())
         assertSnapshot(
-            matching: StaffView(),
-            as: .image(layout: .fixed(width: 500, height: 500)),
+            matching: ScoreView(),
+            as: .image,
             record: true
         )
     }

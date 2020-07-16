@@ -7,18 +7,11 @@ public struct NoteView: View {
     }
 
     let model: Note
+    @Environment(\.toCGFloat) private var toCGFloat: (Em) -> CGFloat
 
     public var body: some View {
-        Text(character(forNoteValue: model.value))
-            .environment(\.font, Font.custom("Bravura", size: 20))
-    }
-
-    private func character(forNoteValue noteValue: NoteValue) -> String {
-        switch noteValue.denominatorExponent {
-        case 0: return "\u{E0A2}"
-        case 1: return "\u{E0A3}"
-        default: return "\u{E0A4}"
-        }
+        NoteHeadView(value: model.value)
+            .offset(x: 0, y: -toCGFloat(model.position.value.staffSpaces.asEm) / 2)
     }
 }
 

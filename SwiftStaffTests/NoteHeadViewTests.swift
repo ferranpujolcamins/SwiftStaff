@@ -4,13 +4,13 @@ import SwiftUI
 @testable import SwiftStaff
 
 #if os (iOS)
-final class NoteViewTests: XCTestCase {
+final class NoteHeadViewTests: XCTestCase {
     func test() throws {
         XCTAssertTrue(SwiftStaff.setup())
-        for i in 0...5 {
-            let model = Note(position: StaffPosition(value: i), value: .quarter)
+        for i in 0...3 {
+            let value = NoteValue(denominatorExponent: UInt(i))
             assertSnapshot(
-                matching: NoteView(model: model)
+                matching: NoteHeadView(value: value)
                     .withSwiftStaffFont,
                 as: .image,
                 record: true
